@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+void my_custom_function() {
+    printf("Hello from my_custom_function!\n");
+}
+
+void test_func()
+{
+    printf("Another test func\n");
+}
+
+int main() {
+    printf("Hello from main!\n");
+    my_custom_function();
+    return 0;
+}
