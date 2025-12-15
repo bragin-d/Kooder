@@ -1,8 +1,9 @@
+# TODO: Actually make a valid CMake setup
 # Specify the minimum version of CMake
 cmake_minimum_required(VERSION 3.10)
 
 # Enable BOTH C and CXX
-project(MyTool C CXX)
+project(Kooder C CXX)
 
 # Set a C++ standard
 set(CMAKE_CXX_STANDARD 17)
