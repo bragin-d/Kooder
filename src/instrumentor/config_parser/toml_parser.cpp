@@ -1,22 +1,37 @@
-#include "instrumentor/config_parser/toml_parser.h"
+#include "instrumentor/config_parser/toml_parser.hpp"
 
-
-
-class toml_parser
+namespace Toml 
 {
-private:
-    /* data */
-public:
-    toml_parser(/* args */);
-    ~toml_parser();
-};
+    // Constructor
+    TomlParser::TomlParser(const std::string& filePath)
+    {
+        parse(filePath);
+        spdlog::info("Config loaded from {}", filePath);
+    }
 
-// Constructor
-toml_parser::toml_parser(/* args */)
-{
-}
+    // Destructor
+    TomlParser::~TomlParser()
+    {
+        spdlog::info("Destructor called");
+    } 
 
-// Destructor
-toml_parser::~toml_parser()
-{
+    void TomlParser::parse(const std::string& filePath)
+    {
+        try
+        {
+            // toml::parse_file returns a table directly
+            auto tbl = toml::parse_file(filePath);
+            
+            _fields.targetVar.name = tbl["target_var"]["name"].value_or("default");
+            
+            std::stringstream ss;
+            ss << tbl; 
+            spdlog::info("Parsed TOML:\n{}", ss.str());
+        }
+        catch (const toml::parse_error& err)
+        {
+            spdlog::error("Error parsing the file: {}", err.description());
+            return;
+        }
+    }
 }
